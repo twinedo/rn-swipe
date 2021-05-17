@@ -20,13 +20,13 @@ const Swipe = ({onEndReached, title, width, height}) => {
     onMoveShouldSetPanResponder: () => setCanReachEnd(!canReachEnd),
     onPanResponderMove: (_, gestureState) => {
       const margin = widthWrapper - btnWidth;
-      if (gestureState.moveX > 0 && gestureState.moveX <= margin) {
+      if (gestureState.dx > 0 && gestureState.dx <= margin - 5) {
         Animated.timing(animatedWidth, {
-          toValue: gestureState.moveX,
+          toValue: gestureState.dx,
           duration: 0,
           useNativeDriver: false,
         }).start();
-      } else if (gestureState.moveX > margin) {
+      } else if (gestureState.dx >= margin) {
         canReachEnd && onEndReached();
         resetSwipe();
         setCanReachEnd(false);
